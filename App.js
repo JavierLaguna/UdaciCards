@@ -4,6 +4,7 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {TabNavigator} from 'react-navigation';
 import DeckListView from './containers/DeckListView';
+import reducer from './reducers';
 
 const Tabs = TabNavigator({
         DeckList: {
@@ -38,9 +39,11 @@ const Tabs = TabNavigator({
 export default class App extends Component {
     render() {
         return (
-            <View style={{flex: 1}}>
-                <Tabs/>
-            </View>
+            <Provider store={createStore(reducer)}>
+                <View style={{flex: 1}}>
+                    <Tabs/>
+                </View>
+            </Provider>
         )
     }
 }
