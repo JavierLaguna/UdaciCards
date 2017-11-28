@@ -3,8 +3,8 @@ import {View} from 'react-native'
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {TabNavigator} from 'react-navigation';
-import DeckListView from './containers/DeckListView';
-import reducer from './reducers';
+import DeckListView from './src/containers/DeckListView';
+import reducer from './src/reducers';
 
 const Tabs = TabNavigator({
         DeckList: {
