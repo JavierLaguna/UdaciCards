@@ -36,9 +36,15 @@ export default class DeckListView extends Component {
         return (
             <View style={{borderColor: gray, borderBottomWidth: 1}}>
                 <DeckDetail title={item.title}
-                            cards={item.questions.length}/>
+                            cards={item.questions.length}
+                            onPress={this.viewDeck.bind(this)}
+                />
             </View>
         )
+    }
+
+    viewDeck(){
+        this.props.navigation.navigate('DeckView', {entryId: 1}) // TODO
     }
 
     render() {
