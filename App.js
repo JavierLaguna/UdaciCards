@@ -9,10 +9,10 @@ import reducer from './src/reducers';
 import {white, orange, blue} from './utils/colors';
 
 const Tabs = TabNavigator({
-        DeckList: {
+        Decks: {
             screen: DeckListView,
             navigatonOptions: {
-                tabBarLabel: 'Deck List',
+                tabBarLabel: 'Decks',
                 tabBarIcon: ({tintColor}) => <MaterialCommunityIcons name='cards-outline' size={30} color={tintColor}/>
             }
         }

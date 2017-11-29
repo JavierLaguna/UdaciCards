@@ -1,11 +1,45 @@
-import React, {Component} from 'react'
-import {View, Text} from 'react-native'
+import React, {Component} from 'react';
+import {View} from 'react-native';
+import DeckDetail from '../components/DeckDetail';
 
 export default class DeckListView extends Component {
+
+    state = {
+        deckList: {
+            React: {
+                title: 'React',
+                questions: [
+                    {
+                        question: 'What is React?',
+                        answer: 'A library for managing user interfaces'
+                    },
+                    {
+                        question: 'Where do you make Ajax requests in React?',
+                        answer: 'The componentDidMount lifecycle event'
+                    }
+                ]
+            },
+            JavaScript: {
+                title: 'JavaScript',
+                questions: [
+                    {
+                        question: 'What is a closure?',
+                        answer: 'The combination of a function and the lexical environment within which that function was declared.'
+                    }
+                ]
+            }
+        }
+    };
+
     render() {
+        const {deckList} = this.state;
         return (
             <View>
-                <Text>Deck List View</Text>
+                {Object.keys(deckList).map((key, index) => (
+                    <DeckDetail key={index}
+                                title={deckList[key].title}
+                                cards={deckList[key].questions.length}/>
+                ))}
             </View>
         )
     }
