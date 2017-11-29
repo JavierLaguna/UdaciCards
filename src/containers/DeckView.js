@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types'
-import {gray} from "../../utils/colors";
+import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {blue, darkGray, gray, white} from "../../utils/colors";
 
 export default class DeckView extends Component {
-
     static propTypes = {
         title: PropTypes.string.isRequired,
         cards: PropTypes.number.isRequired,
@@ -18,13 +18,45 @@ export default class DeckView extends Component {
         }
     };
 
+    static navigationOptions = ({navigation}) => {
+        const {deck} = navigation.state.params;
+
+        return {
+            title: deck
+        }
+    };
+
     render() {
-        const {title} = this.props;
+        const {title, cards} = this.props;
 
         return (
-            <View>
-                <Text>{title}</Text>
+            <View style={styles.container}>
+                <View style={styles.info}>
+                    <MaterialCommunityIcons name='cards-playing-outline' size={50} color={blue}/>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.subTitle}>{`${cards} cards`}</Text>
+                </View>
             </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: white
+    },
+    info: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 60
+    },
+    title: {
+        color: darkGray,
+        fontSize: 20
+    },
+    subTitle: {
+        color: gray
+    }
+});

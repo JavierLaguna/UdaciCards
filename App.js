@@ -14,7 +14,7 @@ const Tabs = TabNavigator({
             screen: DeckListView,
             navigatonOptions: {
                 tabBarLabel: 'Decks',
-                tabBarIcon: ({tintColor}) => <MaterialCommunityIcons name='cards-outline' size={30} color={tintColor}/>
+                tabBarIcon: ({tintColor}) =>  <MaterialCommunityIcons name='cards-outline' size={30} color={tintColor}/>
             }
         }
     },
@@ -66,7 +66,7 @@ export default class App extends Component {
         return (
             <Provider store={createStore(reducer)}>
                 <View style={{flex: 1}}>
-                    <MainNavigator />
+                    <MainNavigator/>
                 </View>
             </Provider>
         )

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, FlatList} from 'react-native';
 import DeckDetail from '../components/DeckDetail';
-import {gray} from "../../utils/colors";
+import {gray, white} from "../../utils/colors";
 
 export default class DeckListView extends Component {
 
@@ -34,17 +34,17 @@ export default class DeckListView extends Component {
 
     renderItem({item}) {
         return (
-            <View style={{borderColor: gray, borderBottomWidth: 1}}>
+            <View style={{borderColor: gray, borderBottomWidth: 1, backgroundColor: white}}>
                 <DeckDetail title={item.title}
                             cards={item.questions.length}
-                            onPress={this.viewDeck.bind(this)}
+                            onPress={this.viewDeck.bind(this, item.title)}
                 />
             </View>
         )
     }
 
-    viewDeck(){
-        this.props.navigation.navigate('DeckView', {entryId: 1}) // TODO
+    viewDeck(deck) {
+        this.props.navigation.navigate('DeckView', {deck})
     }
 
     render() {
