@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import DeckDetail from '../components/DeckDetail';
+import {gray} from "../../utils/colors";
 
 export default class DeckListView extends Component {
 
@@ -36,9 +37,10 @@ export default class DeckListView extends Component {
         return (
             <View>
                 {Object.keys(deckList).map((key, index) => (
-                    <DeckDetail key={index}
-                                title={deckList[key].title}
-                                cards={deckList[key].questions.length}/>
+                    <View key={index} style={{borderColor: gray, borderBottomWidth: 1}}>
+                        <DeckDetail title={deckList[key].title}
+                                    cards={deckList[key].questions.length}/>
+                    </View>
                 ))}
             </View>
         )
