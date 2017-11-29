@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View, FlatList} from 'react-native';
 import DeckDetail from '../components/DeckDetail';
 import {gray} from "../../utils/colors";
 
@@ -32,16 +32,24 @@ export default class DeckListView extends Component {
         }
     };
 
+    renderItem({item}) {
+        return (
+            <View style={{borderColor: gray, borderBottomWidth: 1}}>
+                <DeckDetail title={item.title}
+                            cards={item.questions.length}/>
+            </View>
+        )
+    }
+
     render() {
         const {deckList} = this.state;
+        const arrayList = Object.keys(deckList).map((key, index) => ({...deckList[key], key: index}));
+
         return (
             <View>
-                {Object.keys(deckList).map((key, index) => (
-                    <View key={index} style={{borderColor: gray, borderBottomWidth: 1}}>
-                        <DeckDetail title={deckList[key].title}
-                                    cards={deckList[key].questions.length}/>
-                    </View>
-                ))}
+                <FlatList data={arrayList}
+                          renderItem={this.renderItem.bind(this)}
+                />
             </View>
         )
     }
