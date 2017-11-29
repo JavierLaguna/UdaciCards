@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types'
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {blue, darkGray, gray, white} from "../../utils/colors";
+import IconPlatform from '../components/IconPlatform';
 
 export default class DeckView extends Component {
     static propTypes = {
@@ -32,6 +33,7 @@ export default class DeckView extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.info}>
+                    <IconPlatform name='star' size={50} color={blue}/>
                     <MaterialCommunityIcons name='cards-playing-outline' size={50} color={blue}/>
                     <Text style={styles.title}>{title}</Text>
                     <Text style={styles.subTitle}>{`${cards} cards`}</Text>
