@@ -23,7 +23,7 @@ export default class DeckDetail extends Component {
         return (
             <TouchableOpacity style={styles.container}
                               onPress={onPress}>
-                <View>
+                <View style={styles.btnContainer}>
                     <Text style={styles.title}>{title}</Text>
                     <Text style={styles.subTitle}>{`${cards} cards`}</Text>
                 </View>
@@ -37,8 +37,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 60,
-        paddingBottom: 100
+        padding: 60
+    },
+    btnContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     title: {
         color: darkGray,
