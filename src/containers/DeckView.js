@@ -33,7 +33,7 @@ export default class DeckView extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.info}>
-                    <IconPlatform name='star' size={50} color={blue}/>
+                    <IconPlatform type='Ionicons' name='star' size={50} color={blue}/>
                     <MaterialCommunityIcons name='cards-playing-outline' size={50} color={blue}/>
                     <Text style={styles.title}>{title}</Text>
                     <Text style={styles.subTitle}>{`${cards} cards`}</Text>

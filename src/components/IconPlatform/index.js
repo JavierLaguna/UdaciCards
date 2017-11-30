@@ -1,8 +1,19 @@
 import React, {Component} from 'react';
 import {View, Platform} from 'react-native';
 import PropTypes from 'prop-types'
-import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
-import {blue, darkGray, gray, white} from "../../../utils/colors";
+import {
+    Ionicons,
+    MaterialCommunityIcons,
+    Entypo,
+    EvilIcons,
+    Feather,
+    FontAwesome,
+    Foundation,
+    MaterialIcons,
+    SimpleLineIcons,
+    Octicons,
+    Zocial
+} from '@expo/vector-icons';
 
 export default class IconPlatform extends Component {
     static propTypes = {
@@ -15,13 +26,56 @@ export default class IconPlatform extends Component {
         type: ''
     };
 
+    state = {
+        iconComponents: {
+            Ionicons: () => {
+                return (<Ionicons {...this.props} name={this.generateFinalName(this.props.name)}/>)
+            },
+            MaterialCommunityIcons: () => {
+                return (<MaterialCommunityIcons {...this.props} name={this.generateFinalName(this.props.name)}/>)
+            },
+            Entypo: () => {
+                return (<Entypo {...this.props} name={this.generateFinalName(this.props.name)}/>)
+            },
+            EvilIcons: () => {
+                return (<EvilIcons {...this.props} name={this.generateFinalName(this.props.name)}/>)
+            },
+            Feather: () => {
+                return (<Feather {...this.props} name={this.generateFinalName(this.props.name)}/>)
+            },
+            FontAwesome: () => {
+                return (<FontAwesome {...this.props} name={this.generateFinalName(this.props.name)}/>)
+            },
+            Foundation: () => {
+                return (<Foundation {...this.props} name={this.generateFinalName(this.props.name)}/>)
+            },
+            MaterialIcons: () => {
+                return (<MaterialIcons {...this.props} name={this.generateFinalName(this.props.name)}/>)
+            },
+            SimpleLineIcons: () => {
+                return (<SimpleLineIcons {...this.props} name={this.generateFinalName(this.props.name)}/>)
+            },
+            Octicons: () => {
+                return (<Octicons {...this.props} name={this.generateFinalName(this.props.name)}/>)
+            },
+            Zocial: () => {
+                return (<Zocial {...this.props} name={this.generateFinalName(this.props.name)}/>)
+            }
+        }
+    };
+
+    generateFinalName(name) {
+        return Platform.OS === 'ios' ? `ios-${name}` : `md-${name}`;
+    }
+
     render() {
-        const {name, type} = this.props;
-        const finalName = Platform.OS === 'ios' ? `ios-${name}` : `md-${name}`;
+        const {iconComponents} = this.state;
+        const {type} = this.props;
+        const PlatformIcon = iconComponents[type];
 
         return (
             <View>
-                <Ionicons {...this.props} name={finalName}/>
+                <PlatformIcon/>
             </View>
         )
     }
