@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types'
 import {FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
-import {blue, darkGray, gray, orange, white, yellow} from "../../utils/colors";
+import {blue, darkGray, gray, white, yellow} from "../../utils/colors";
 import IconPlatform from '../components/IconPlatform';
+import Button from '../components/Button';
 
 export default class DeckView extends Component {
     static propTypes = {
@@ -51,13 +52,13 @@ export default class DeckView extends Component {
                 </View>
 
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.androidSubmitBtn}>
-                        <Text>Add Card</Text>
-                    </TouchableOpacity>
+                    <Button>
+                        Add Card
+                    </Button>
 
-                    <TouchableOpacity style={styles.androidSubmitBtn}>
-                        <Text>Start Quiz</Text>
-                    </TouchableOpacity>
+                    <Button>
+                        Start Quiz
+                    </Button>
                 </View>
             </View>
         )
@@ -100,26 +101,6 @@ const styles = StyleSheet.create({
     buttonsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginBottom:40
-    },
-    btn:{},
-    iosSubmitBtn: {
-        backgroundColor: orange,
-        padding: 10,
-        borderRadius: 7,
-        height: 45,
-        marginLeft: 40,
-        marginRight: 40
-    },
-    androidSubmitBtn: {
-        backgroundColor: gray,
-        padding: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        borderRadius: 2,
-        height: 45,
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
-        alignItems: 'center'
+        marginBottom: 40
     }
 });
