@@ -6,6 +6,7 @@ import {TabNavigator, StackNavigator} from 'react-navigation';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import DeckListView from './src/containers/DeckListView';
 import DeckView from './src/containers/DeckView';
+import CardsStatusBar from './src/components/CardsStatusBar';
 import reducer from './src/reducers';
 import {white, orange, blue} from './utils/colors';
 
@@ -66,6 +67,7 @@ export default class App extends Component {
         return (
             <Provider store={createStore(reducer)}>
                 <View style={{flex: 1}}>
+                    <CardsStatusBar/>
                     <MainNavigator/>
                 </View>
             </Provider>
