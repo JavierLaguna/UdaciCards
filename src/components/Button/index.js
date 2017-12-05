@@ -6,22 +6,24 @@ import {blue, white} from "../../../utils/colors";
 export default class Button extends Component {
     static propTypes = {
         style: PropTypes.object,
+        textStyle: PropTypes.object,
         children: PropTypes.string.isRequired
     };
 
     static defaultProps = {
         style: {},
+        textStyle: {},
         children: ''
     };
 
     render() {
-        const {style, children} = this.props;
+        const {style, children, textStyle} = this.props;
 
         return (
             <TouchableOpacity {...this.props}
                               style={[styles.btn, Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, style]}
             >
-                <Text style={styles.text}>{children}</Text>
+                <Text style={[styles.text, textStyle]}>{children}</Text>
             </TouchableOpacity>
         )
     }
