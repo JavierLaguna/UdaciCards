@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types'
-import {MaterialCommunityIcons} from '@expo/vector-icons';
-import {blue, darkGray, gray, white} from "../../utils/colors";
+import {FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
+import {blue, darkGray, gray, white, yellow} from "../../utils/colors";
 import IconPlatform from '../components/IconPlatform';
+import Button from '../components/Button';
 
 export default class DeckView extends Component {
     static propTypes = {
@@ -13,6 +14,7 @@ export default class DeckView extends Component {
     };
 
     static defaultProps = {
+        author: 'Author',
         title: 'Deck Title',
         cards: 0,
         onPress: () => {
@@ -28,15 +30,35 @@ export default class DeckView extends Component {
     };
 
     render() {
-        const {title, cards} = this.props;
+        const {author, title, cards} = this.props;
 
         return (
             <View style={styles.container}>
+                <View style={styles.authorContainer}>
+                    <Text style={styles.author}>{author}</Text>
+                    <FontAwesome name='user' size={25} color={gray}/>
+                </View>
+
                 <View style={styles.info}>
-                    <IconPlatform type='Ionicons' name='star' size={50} color={blue}/>
                     <MaterialCommunityIcons name='cards-playing-outline' size={50} color={blue}/>
                     <Text style={styles.title}>{title}</Text>
                     <Text style={styles.subTitle}>{`${cards} cards`}</Text>
+
+                    <View style={styles.starsContainer}>
+                        <IconPlatform type='Ionicons' name='star' size={50} color={yellow}/>
+                        <IconPlatform type='Ionicons' name='star-outline' size={50} color={gray}/>
+                        <IconPlatform type='Ionicons' name='star-outline' size={50} color={gray}/>
+                    </View>
+                </View>
+
+                <View style={styles.buttonsContainer}>
+                    <Button>
+                        Add Card
+                    </Button>
+
+                    <Button>
+                        Start Quiz
+                    </Button>
                 </View>
             </View>
         )
@@ -51,8 +73,7 @@ const styles = StyleSheet.create({
     info: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        padding: 60
+        alignItems: 'center'
     },
     title: {
         color: darkGray,
@@ -60,5 +81,26 @@ const styles = StyleSheet.create({
     },
     subTitle: {
         color: gray
+    },
+    authorContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        padding: 10,
+        height: 40
+    },
+    author: {
+        alignItems: 'center',
+        marginRight: 5,
+        marginTop: 5,
+        color: gray
+    },
+    starsContainer: {
+        flexDirection: 'row',
+        marginTop: 10
+    },
+    buttonsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginBottom: 40
     }
 });

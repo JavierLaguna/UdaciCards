@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
-import {View, Platform} from 'react-native';
+import {Platform, View} from 'react-native';
 import PropTypes from 'prop-types'
 import {
-    Ionicons,
-    MaterialCommunityIcons,
     Entypo,
     EvilIcons,
     Feather,
     FontAwesome,
     Foundation,
+    Ionicons,
+    MaterialCommunityIcons,
     MaterialIcons,
-    SimpleLineIcons,
     Octicons,
+    SimpleLineIcons,
     Zocial
 } from '@expo/vector-icons';
 
