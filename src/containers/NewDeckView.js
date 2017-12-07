@@ -18,8 +18,17 @@ export default class NewDeckView extends Component {
         });
     }
 
+    onSubmit() {
+        this.props.navigation.navigate('AddCardView');
+        this.setState({
+            deckTitle: '',
+            author: ''
+        });
+    }
+
     render() {
         const {author, deckTitle} = this.state;
+        let disabledButton = author === '' || deckTitle === '';
 
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.container}>
@@ -46,7 +55,10 @@ export default class NewDeckView extends Component {
                            placeholder='Deck author'
                     />
                 </View>
-                <Button>Submit</Button>
+                <Button disabled={disabledButton}
+                        onPress={this.onSubmit.bind(this)}>
+                    Submit
+                </Button>
             </KeyboardAvoidingView>
         )
     }

@@ -7,21 +7,37 @@ export default class Button extends Component {
     static propTypes = {
         style: PropTypes.object,
         textStyle: PropTypes.object,
-        children: PropTypes.string.isRequired
+        children: PropTypes.string.isRequired,
+        disabled: PropTypes.bool,
+        onPress: PropTypes.func
     };
 
     static defaultProps = {
         style: {},
         textStyle: {},
-        children: ''
+        children: '',
+        disabled: false,
+        onPress: () => {
+        }
     };
 
+    onPress(event) {
+        if (!this.props.disabled) {
+            this.props.onPress(event);
+        }
+    }
+
     render() {
-        const {style, children, textStyle} = this.props;
+        const {style, children, textStyle, disabled} = this.props;
 
         return (
             <TouchableOpacity {...this.props}
-                              style={[styles.btn, Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, style]}
+                              onPress={this.onPress.bind(this)}
+                              style={[styles.btn,
+                                  Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn,
+                                  style,
+                                  disabled ? styles.disabled : {opacity: 1}
+                              ]}
             >
                 <Text style={[styles.text, textStyle]}>{children}</Text>
             </TouchableOpacity>
@@ -49,5 +65,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: white
+    },
+    disabled: {
+        opacity: 0.6
     }
 });
