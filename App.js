@@ -1,29 +1,42 @@
 import React, {Component} from 'react';
-import {View, Platform} from 'react-native'
+import {Platform, View} from 'react-native'
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import {TabNavigator, StackNavigator} from 'react-navigation';
+import {StackNavigator, TabNavigator} from 'react-navigation';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import DeckListView from './src/containers/DeckListView';
+import NewDeckView from './src/containers/NewDeckView';
 import DeckView from './src/containers/DeckView';
 import CardsStatusBar from './src/components/CardsStatusBar';
+import IconPlatform from './src/components/IconPlatform';
 import reducer from './src/reducers';
-import {white, orange, blue} from './utils/colors';
+import {blue, orange, white} from './utils/colors';
 
 const Tabs = TabNavigator({
         Decks: {
             screen: DeckListView,
-            navigatonOptions: {
+            navigationOptions: {
                 tabBarLabel: 'Decks',
-                tabBarIcon: ({tintColor}) =>  <MaterialCommunityIcons name='cards-outline' size={30} color={tintColor}/>
+                tabBarIcon: ({tintColor}) => <MaterialCommunityIcons name='cards-outline' size={30} color={tintColor}/>
+            }
+        },
+        NewDeck: {
+            screen: NewDeckView,
+            navigationOptions: {
+                tabBarLabel: 'New Deck',
+                tabBarIcon: ({tintColor}) => <IconPlatform type='Ionicons'
+                                                           name='add'
+                                                           size={30}
+                                                           color={tintColor}/>
             }
         }
     },
     {
-        navigatonOptions: {
+        navigationOptions: {
             header: null
         },
         tabBarOptions: {
+            // showIcon: true,
             activeTintColor: Platform.OS === 'ios' ? orange : white,
             indicatorStyle: {
                 backgroundColor: blue

@@ -52,7 +52,7 @@ export default class DeckView extends Component {
                 </View>
 
                 <View style={styles.buttonsContainer}>
-                    <Button>
+                    <Button style={styles.addButton} textStyle={{color: blue}}>
                         Add Card
                     </Button>
 
@@ -102,5 +102,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginBottom: 40
+    },
+    addButton: {
+        backgroundColor: white,
+        borderColor: blue,
+        borderWidth: 2
     }
 });
