@@ -23,6 +23,10 @@ export default class AddCardView extends Component {
         });
     }
 
+    onSubmit() {
+
+    }
+
     render() {
         const {answer, question} = this.state;
         let disabledButton = answer === '' || question === '';
@@ -32,9 +36,9 @@ export default class AddCardView extends Component {
                 <Text style={styles.title}>New Card</Text>
                 <View style={styles.inputContainer}>
                     <FontAwesome style={styles.icon}
-                                            name='question-circle'
-                                            size={50}
-                                            color={blue}
+                                 name='question-circle'
+                                 size={50}
+                                 color={blue}
                     />
                     <Input value={question}
                            onChange={this.changeInput.bind(this, 'question')}
@@ -43,16 +47,19 @@ export default class AddCardView extends Component {
                 </View>
                 <View style={styles.inputContainer}>
                     <MaterialIcons style={styles.icon}
-                                 name='question-answer'
-                                 size={50}
-                                 color={blue}
+                                   name='question-answer'
+                                   size={50}
+                                   color={blue}
                     />
                     <Input value={answer}
                            onChange={this.changeInput.bind(this, 'answer')}
                            placeholder='Answer'
                     />
                 </View>
-                <Button disabled={disabledButton}>Submit</Button>
+                <Button disabled={disabledButton}
+                        onPress={this.onSubmit.bind(this)}>
+                    Submit
+                </Button>
             </KeyboardAvoidingView>
         )
     }
