@@ -8,6 +8,7 @@ import DeckListView from './src/containers/DeckListView';
 import NewDeckView from './src/containers/NewDeckView';
 import DeckView from './src/containers/DeckView';
 import AddCardView from './src/containers/AddCardView';
+import QuizView from './src/containers/QuizView';
 import CardsStatusBar from './src/components/CardsStatusBar';
 import IconPlatform from './src/components/IconPlatform';
 import reducer from './src/reducers';
@@ -76,6 +77,15 @@ const MainNavigator = StackNavigator({
     },
     AddCardView: {
         screen: AddCardView,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: orange
+            }
+        }
+    },
+    QuizView: {
+        screen: QuizView,
         navigationOptions: {
             headerTintColor: white,
             headerStyle: {
