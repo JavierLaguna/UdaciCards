@@ -44,7 +44,7 @@ export default class DeckListView extends Component {
     }
 
     viewDeck(deck) {
-        this.props.navigation.navigate('DeckView', {deck})
+        this.props.navigation.navigate('DeckView', {deck});
     }
 
     render() {

@@ -1,15 +1,20 @@
 import React, {Component} from 'react';
 import {KeyboardAvoidingView, StyleSheet, Text, View} from 'react-native';
 import {blue, darkGray} from "../../utils/colors";
-import {FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
+import {FontAwesome, MaterialIcons} from '@expo/vector-icons';
 import Button from '../components/Button';
 import Input from '../components/Input';
 
-export default class NewDeckView extends Component {
-
+export default class AddCardView extends Component {
     state = {
-        deckTitle: '',
-        author: ''
+        answer: '',
+        question: ''
+    };
+
+    static navigationOptions = () => {
+        return {
+            title: 'Add Card'
+        }
     };
 
     changeInput(field, e) {
@@ -19,40 +24,36 @@ export default class NewDeckView extends Component {
     }
 
     onSubmit() {
-        this.props.navigation.navigate('AddCardView');
-        this.setState({
-            deckTitle: '',
-            author: ''
-        });
+
     }
 
     render() {
-        const {author, deckTitle} = this.state;
-        let disabledButton = author === '' || deckTitle === '';
+        const {answer, question} = this.state;
+        let disabledButton = answer === '' || question === '';
 
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.container}>
-                <Text style={styles.title}>Create a new deck!</Text>
+                <Text style={styles.title}>New Card</Text>
                 <View style={styles.inputContainer}>
-                    <MaterialCommunityIcons style={styles.icon}
-                                            name='cards-playing-outline'
-                                            size={50}
-                                            color={blue}
+                    <FontAwesome style={styles.icon}
+                                 name='question-circle'
+                                 size={50}
+                                 color={blue}
                     />
-                    <Input value={deckTitle}
-                           onChange={this.changeInput.bind(this, 'deckTitle')}
-                           placeholder='New deck name'
+                    <Input value={question}
+                           onChange={this.changeInput.bind(this, 'question')}
+                           placeholder='Question'
                     />
                 </View>
                 <View style={styles.inputContainer}>
-                    <FontAwesome style={styles.icon}
-                                 name='user'
-                                 size={44}
-                                 color={blue}
+                    <MaterialIcons style={styles.icon}
+                                   name='question-answer'
+                                   size={50}
+                                   color={blue}
                     />
-                    <Input value={author}
-                           onChange={this.changeInput.bind(this, 'author')}
-                           placeholder='Deck author'
+                    <Input value={answer}
+                           onChange={this.changeInput.bind(this, 'answer')}
+                           placeholder='Answer'
                     />
                 </View>
                 <Button disabled={disabledButton}

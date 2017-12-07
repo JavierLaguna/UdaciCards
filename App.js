@@ -7,6 +7,7 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 import DeckListView from './src/containers/DeckListView';
 import NewDeckView from './src/containers/NewDeckView';
 import DeckView from './src/containers/DeckView';
+import AddCardView from './src/containers/AddCardView';
 import CardsStatusBar from './src/components/CardsStatusBar';
 import IconPlatform from './src/components/IconPlatform';
 import reducer from './src/reducers';
@@ -66,6 +67,15 @@ const MainNavigator = StackNavigator({
     },
     DeckView: {
         screen: DeckView,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: orange
+            }
+        }
+    },
+    AddCardView: {
+        screen: AddCardView,
         navigationOptions: {
             headerTintColor: white,
             headerStyle: {
