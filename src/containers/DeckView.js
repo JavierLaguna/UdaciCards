@@ -60,7 +60,7 @@ export default class DeckView extends Component {
                 </View>
 
                 <View style={styles.buttonsContainer}>
-                    <Button onPress={this.addCard.bind(this)} style={styles.addButton} textStyle={{color: blue}}>
+                    <Button onPress={this.addCard.bind(this)} style={StyleSheet.flatten(styles.addButton)} textStyle={{color: blue}}>
                         Add Card
                     </Button>
 
