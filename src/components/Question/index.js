@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import TextButton from '../TextButton';
+import {white} from "../../../utils/colors";
 
 export default class Question extends Component {
     static propTypes = {
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 60
+        backgroundColor: white
     },
     title: {
         fontSize: 30,
