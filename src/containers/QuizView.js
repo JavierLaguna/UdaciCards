@@ -3,15 +3,31 @@ import {StyleSheet, Text, View} from 'react-native';
 import {darkGray, gray, green, white, red} from "../../utils/colors";
 import {MaterialIcons} from '@expo/vector-icons';
 import IconPlatform from '../components/IconPlatform';
+import Question from '../components/Question';
+import Answer from '../components/Answer';
+
+const QUESTION_VIEW = 'question-view';
+const ANSWER_VIEW = 'answer-view';
 
 export default class QuizView extends Component {
+
+    state = {
+        view: QUESTION_VIEW
+    };
+
     static navigationOptions = () => {
         return {
             title: 'Quiz - NameDeck'
         }
     };
 
+    onFlipPage(page) {
+        this.setState({view: page});
+    }
+
     render() {
+        const {view} = this.state;
+
         return (
             <View behavior='padding' style={styles.container}>
                 <View style={styles.headerContainer}>
@@ -31,7 +47,12 @@ export default class QuizView extends Component {
                     </View>
                 </View>
 
-                <Text style={styles.title}>Quiz!</Text>
+                <View style={styles.bodyContainer}>
+                    {view === QUESTION_VIEW ?
+                        <Question flipPage={this.onFlipPage.bind(this, ANSWER_VIEW)}/>
+                        : <Answer flipPage={this.onFlipPage.bind(this, QUESTION_VIEW)}/>
+                    }
+                </View>
             </View>
         )
     }
@@ -72,5 +93,10 @@ const styles = StyleSheet.create({
         marginRight: 5,
         marginTop: 1,
         color: darkGray
+    },
+    bodyContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });
