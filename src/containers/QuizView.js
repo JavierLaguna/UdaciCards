@@ -43,7 +43,7 @@ export default class QuizView extends Component {
         this.animate();
         setTimeout(() => {
             this.setState({view: page});
-        }, ANIMATION_DURATION - 100);
+        }, ANIMATION_DURATION - 150);
     }
 
     render() {
