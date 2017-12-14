@@ -29,6 +29,14 @@ export default class DeckView extends Component {
         }
     };
 
+    addCard() {
+        this.props.navigation.navigate('AddCardView');
+    }
+
+    startQuiz() {
+        this.props.navigation.navigate('QuizView');
+    }
+
     render() {
         const {author, title, cards} = this.props;
 
@@ -52,11 +60,11 @@ export default class DeckView extends Component {
                 </View>
 
                 <View style={styles.buttonsContainer}>
-                    <Button style={styles.addButton} textStyle={{color: blue}}>
+                    <Button onPress={this.addCard.bind(this)} style={StyleSheet.flatten(styles.addButton)} textStyle={{color: blue}}>
                         Add Card
                     </Button>
 
-                    <Button>
+                    <Button onPress={this.startQuiz.bind(this)}>
                         Start Quiz
                     </Button>
                 </View>

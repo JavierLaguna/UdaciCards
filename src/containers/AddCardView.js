@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {KeyboardAvoidingView, StyleSheet, Text, View} from 'react-native';
-import {blue, darkGray} from "../../utils/colors";
+import {blue, darkGray, white} from "../../utils/colors";
 import {FontAwesome, MaterialIcons} from '@expo/vector-icons';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: white
     },
     title: {
         fontSize: 20,
