@@ -6,7 +6,7 @@ import TextButton from '../TextButton';
 export default class Answer extends Component {
     static propTypes = {
         flipPage: PropTypes.func.isRequired,
-        title: PropTypes.string.isReplace
+        title: PropTypes.string.isRequired
     };
 
     static defaultProps = {
