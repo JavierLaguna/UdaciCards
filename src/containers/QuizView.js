@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Animated, Easing} from 'react-native';
 import {darkGray, gray, green, white, red} from "../../utils/colors";
 import {MaterialIcons} from '@expo/vector-icons';
 import IconPlatform from '../components/IconPlatform';
@@ -8,6 +8,7 @@ import Answer from '../components/Answer';
 
 const QUESTION_VIEW = 'question-view';
 const ANSWER_VIEW = 'answer-view';
+const ANIMATION_DURATION = 400;
 
 export default class QuizView extends Component {
 
@@ -21,12 +22,36 @@ export default class QuizView extends Component {
         }
     };
 
+    constructor() {
+        super();
+        this.animatedValue = new Animated.Value(0);
+    }
+
+    animate() {
+        this.animatedValue.setValue(0);
+        Animated.timing(
+            this.animatedValue,
+            {
+                toValue: 1,
+                duration: ANIMATION_DURATION,
+                easing: Easing.linear
+            }
+        ).start()
+    }
+
     onFlipPage(page) {
-        this.setState({view: page});
+        this.animate();
+        setTimeout(() => {
+            this.setState({view: page});
+        }, ANIMATION_DURATION - 100);
     }
 
     render() {
         const {view} = this.state;
+        const rotateY = this.animatedValue.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['0deg', '360deg']
+        });
 
         return (
             <View behavior='padding' style={styles.container}>
@@ -47,12 +72,12 @@ export default class QuizView extends Component {
                     </View>
                 </View>
 
-                <View style={styles.bodyContainer}>
+                <Animated.View style={[styles.bodyContainer, {transform: [{rotateY}]}]}>
                     {view === QUESTION_VIEW ?
                         <Question flipPage={this.onFlipPage.bind(this, ANSWER_VIEW)}/>
                         : <Answer flipPage={this.onFlipPage.bind(this, QUESTION_VIEW)}/>
                     }
-                </View>
+                </Animated.View>
             </View>
         )
     }
