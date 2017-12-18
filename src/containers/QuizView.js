@@ -1,24 +1,36 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Animated, Easing} from 'react-native';
-import {darkGray, gray, green, white, red} from "../../utils/colors";
+import {Animated, Easing, StyleSheet, Text, View} from 'react-native';
+import {darkGray, gray, green, red, white} from "../../utils/colors";
 import {MaterialIcons} from '@expo/vector-icons';
 import IconPlatform from '../components/IconPlatform';
 import Question from '../components/Question';
 import Answer from '../components/Answer';
+import {connect} from "react-redux";
+import PropTypes from 'prop-types'
 
 const QUESTION_VIEW = 'question-view';
 const ANSWER_VIEW = 'answer-view';
 const ANIMATION_DURATION = 400;
 
-export default class QuizView extends Component {
+class QuizView extends Component {
+
+    static propTypes = {
+        selectedDeck: PropTypes.object.isRequired
+    };
+
+    static defaultProps = {
+        selectedDeck: {}
+    };
 
     state = {
         view: QUESTION_VIEW
     };
 
-    static navigationOptions = () => {
+    static navigationOptions = ({navigation}) => {
+        const {title} = navigation.state.params;
+
         return {
-            title: 'Quiz - NameDeck'
+            title: `Quiz - ${title}`
         }
     };
 
@@ -48,6 +60,8 @@ export default class QuizView extends Component {
 
     render() {
         const {view} = this.state;
+        const {selectedDeck, quiz} = this.props;
+        const {questions} = selectedDeck;
         const rotateY = this.animatedValue.interpolate({
             inputRange: [0, 1],
             outputRange: ['0deg', '360deg']
@@ -57,16 +71,16 @@ export default class QuizView extends Component {
             <View behavior='padding' style={styles.container}>
                 <View style={styles.headerContainer}>
                     <View style={styles.numberContainer}>
-                        <Text style={styles.number}>{'1/1'}</Text>
+                        <Text style={styles.number}>{`${quiz.currentQuestion}/${Object.keys(questions).length}`}</Text>
                         <MaterialIcons name='question-answer' size={25} color={gray}/>
                     </View>
                     <View>
                         <View style={styles.pointsContainer}>
-                            <Text style={styles.points}>1</Text>
+                            <Text style={styles.points}>{quiz.hitQuestions}</Text>
                             <IconPlatform type='Ionicons' name='checkmark-circle' size={20} color={green}/>
                         </View>
                         <View style={styles.pointsContainer}>
-                            <Text style={styles.points}>0</Text>
+                            <Text style={styles.points}>{quiz.failQuestions}</Text>
                             <IconPlatform type='Ionicons' name='close-circle' size={20} color={red}/>
                         </View>
                     </View>
@@ -74,8 +88,12 @@ export default class QuizView extends Component {
 
                 <Animated.View style={[styles.bodyContainer, {transform: [{rotateY}]}]}>
                     {view === QUESTION_VIEW ?
-                        <Question flipPage={this.onFlipPage.bind(this, ANSWER_VIEW)}/>
-                        : <Answer flipPage={this.onFlipPage.bind(this, QUESTION_VIEW)}/>
+                        <Question title={questions[0].question}
+                                  flipPage={this.onFlipPage.bind(this, ANSWER_VIEW)}
+                        />
+                        : <Answer title={questions[0].answer}
+                                  flipPage={this.onFlipPage.bind(this, QUESTION_VIEW)}
+                        />
                     }
                 </Animated.View>
             </View>
@@ -125,3 +143,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }
 });
+
+function mapStateToProps({decks}) {
+    return {
+        selectedDeck: decks.selectedDeck,
+        quiz: decks.quiz
+    }
+}
+
+export default connect(mapStateToProps)(QuizView)

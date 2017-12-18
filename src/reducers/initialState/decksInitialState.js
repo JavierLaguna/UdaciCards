@@ -27,5 +27,10 @@ export default {
             ]
         }
     },
-    selectedDeck: {}
+    selectedDeck: {},
+    quiz: {
+        currentQuestion: 0,
+        failQuestions: 0,
+        hitQuestions: 0,
+    }
 }

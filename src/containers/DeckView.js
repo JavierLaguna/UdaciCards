@@ -31,7 +31,8 @@ class DeckView extends Component {
     }
 
     startQuiz() {
-        this.props.navigation.navigate('QuizView');
+        const {title} = this.props.selectedDeck;
+        this.props.navigation.navigate('QuizView', {title});
     }
 
     render() {
@@ -48,7 +49,6 @@ class DeckView extends Component {
         for (let i = 0; i < noStars; i++) {
             starsItems.push(<IconPlatform key={i} type='Ionicons' name='star-outline' size={50} color={gray}/>);
         }
-
 
         return (
             <View style={styles.container}>
