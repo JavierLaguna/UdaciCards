@@ -7,6 +7,7 @@ import {getStarsFromVotes} from "../../utils/votes";
 import IconPlatform from '../components/IconPlatform';
 import Button from '../components/Button';
 import {connect} from "react-redux";
+import {MAX_STARS} from '../constants/constants';
 
 class DeckView extends Component {
     static propTypes = {
@@ -36,6 +37,18 @@ class DeckView extends Component {
     render() {
         const {selectedDeck} = this.props;
         const stars = getStarsFromVotes(selectedDeck.votes);
+        const noStars = MAX_STARS - stars;
+        const starsItems = [];
+        const noStarsItems = [];
+
+        for (let i = 0; i < stars; i++) {
+            starsItems.push(<IconPlatform key={i} type='Ionicons' name='star' size={50} color={yellow}/>);
+        }
+
+        for (let i = 0; i < noStars; i++) {
+            starsItems.push(<IconPlatform key={i} type='Ionicons' name='star-outline' size={50} color={gray}/>);
+        }
+
 
         return (
             <View style={styles.container}>
@@ -50,9 +63,8 @@ class DeckView extends Component {
                     <Text style={styles.subTitle}>{`${selectedDeck.questions.length} cards`}</Text>
 
                     <View style={styles.starsContainer}>
-                        <IconPlatform type='Ionicons' name='star' size={50} color={yellow}/>
-                        <IconPlatform type='Ionicons' name='star-outline' size={50} color={gray}/>
-                        <IconPlatform type='Ionicons' name='star-outline' size={50} color={gray}/>
+                        {starsItems}
+                        {noStarsItems}
                     </View>
                 </View>
 
