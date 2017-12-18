@@ -1,6 +1,6 @@
-export default function entries(state = {}, action) {
-    switch (action.type) {
-        default:
-            return state;
-    }
-}
+import decksReducer from './decksReducer'
+import { combineReducers } from 'redux'
+
+export default combineReducers({
+    decks: decksReducer
+})
