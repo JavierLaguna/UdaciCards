@@ -36,7 +36,7 @@ export default class Button extends Component {
                               style={[styles.btn,
                                   Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn,
                                   style,
-                                  disabled ? styles.disabled : {opacity: 1}
+                                  // disabled ? styles.disabled : {opacity: 1}
                               ]}
             >
                 <Text style={[styles.text, textStyle]}>{children}</Text>

@@ -50,6 +50,14 @@ export default function entries(state = decksInitialState, action) {
                     [action.deckId]: {...deck}
                 }
             }
+        case types.CREATE_DECK:
+            return {
+                ...state,
+                deckList: {
+                    ...state.deckList,
+                    [action.deck.title]: {...action.deck}
+                }
+            }
         default:
             return state;
     }

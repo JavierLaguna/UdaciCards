@@ -4,8 +4,10 @@ import {blue, darkGray, white} from "../../utils/colors";
 import {FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import {createDeckAction, setSelectedDeckAction} from "../actions/deckActions";
+import {connect} from "react-redux";
 
-export default class NewDeckView extends Component {
+class NewDeckView extends Component {
 
     state = {
         deckTitle: '',
@@ -19,7 +21,20 @@ export default class NewDeckView extends Component {
     }
 
     onSubmit() {
-        this.props.navigation.navigate('AddCardView');
+        const newDeck = {
+            author: this.state.author,
+            title: this.state.deckTitle,
+            votes: [],
+            questions: []
+        };
+        this.props.createDeckAction(newDeck);
+        this.viewDeck(newDeck);
+    }
+
+    viewDeck(deck) {
+        const title = deck.title;
+        this.props.setSelectedDeckAction(deck);
+        this.props.navigation.navigate('DeckView', {title});
         this.setState({
             deckTitle: '',
             author: ''
@@ -83,3 +98,11 @@ const styles = StyleSheet.create({
         marginTop: 15
     }
 });
+
+function mapStateToProps({decks}) {
+    return {
+        deckList: decks.deckList
+    }
+}
+
+export default connect(mapStateToProps, {createDeckAction, setSelectedDeckAction})(NewDeckView)
