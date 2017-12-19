@@ -3,29 +3,26 @@ import {StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types'
 import {FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
 import {blue, darkGray, gray, white, yellow} from "../../utils/colors";
+import {getStarsFromVotes} from "../../utils/votes";
 import IconPlatform from '../components/IconPlatform';
 import Button from '../components/Button';
+import {connect} from "react-redux";
+import {MAX_STARS} from '../constants/constants';
 
-export default class DeckView extends Component {
+class DeckView extends Component {
     static propTypes = {
-        title: PropTypes.string.isRequired,
-        cards: PropTypes.number.isRequired,
-        onPress: PropTypes.func.isRequired
+        selectedDeck: PropTypes.object.isRequired
     };
 
     static defaultProps = {
-        author: 'Author',
-        title: 'Deck Title',
-        cards: 0,
-        onPress: () => {
-        }
+        selectedDeck: {}
     };
 
     static navigationOptions = ({navigation}) => {
-        const {deck} = navigation.state.params;
+        const {title} = navigation.state.params;
 
         return {
-            title: deck
+            title
         }
     };
 
@@ -34,33 +31,50 @@ export default class DeckView extends Component {
     }
 
     startQuiz() {
-        this.props.navigation.navigate('QuizView');
+        const {title} = this.props.selectedDeck;
+        this.props.navigation.navigate('QuizView', {title});
     }
 
     render() {
-        const {author, title, cards} = this.props;
+        const {selectedDeck} = this.props;
+        const stars = getStarsFromVotes(selectedDeck.votes);
+        const noStars = MAX_STARS - stars;
+        const starsItems = [];
+        const noStarsItems = [];
+
+        for (let i = 0; i < stars; i++) {
+            starsItems.push(
+                <IconPlatform key={i + stars} type='Ionicons' name='star' size={50} color={yellow}/>
+            );
+        }
+
+        for (let i = 0; i < noStars; i++) {
+            starsItems.push(
+                <IconPlatform key={i + noStars} type='Ionicons' name='star-outline' size={50} color={gray}/>
+            );
+        }
 
         return (
             <View style={styles.container}>
                 <View style={styles.authorContainer}>
-                    <Text style={styles.author}>{author}</Text>
+                    <Text style={styles.author}>{selectedDeck.author}</Text>
                     <FontAwesome name='user' size={25} color={gray}/>
                 </View>
 
                 <View style={styles.info}>
                     <MaterialCommunityIcons name='cards-playing-outline' size={50} color={blue}/>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.subTitle}>{`${cards} cards`}</Text>
+                    <Text style={styles.title}>{selectedDeck.title}</Text>
+                    <Text style={styles.subTitle}>{`${selectedDeck.questions.length} cards`}</Text>
 
                     <View style={styles.starsContainer}>
-                        <IconPlatform type='Ionicons' name='star' size={50} color={yellow}/>
-                        <IconPlatform type='Ionicons' name='star-outline' size={50} color={gray}/>
-                        <IconPlatform type='Ionicons' name='star-outline' size={50} color={gray}/>
+                        {starsItems}
+                        {noStarsItems}
                     </View>
                 </View>
 
                 <View style={styles.buttonsContainer}>
-                    <Button onPress={this.addCard.bind(this)} style={StyleSheet.flatten(styles.addButton)} textStyle={{color: blue}}>
+                    <Button onPress={this.addCard.bind(this)} style={StyleSheet.flatten(styles.addButton)}
+                            textStyle={{color: blue}}>
                         Add Card
                     </Button>
 
@@ -117,3 +131,12 @@ const styles = StyleSheet.create({
         borderWidth: 2
     }
 });
+
+
+function mapStateToProps({decks}) {
+    return {
+        selectedDeck: decks.selectedDeck
+    }
+}
+
+export default connect(mapStateToProps)(DeckView)

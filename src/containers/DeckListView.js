@@ -1,35 +1,19 @@
 import React, {Component} from 'react';
-import {View, FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
 import DeckDetail from '../components/DeckDetail';
+import PropTypes from 'prop-types';
 import {gray, white} from "../../utils/colors";
+import {connect} from 'react-redux';
+import {setSelectedDeckAction} from '../actions/deckActions';
 
-export default class DeckListView extends Component {
+class DeckListView extends Component {
 
-    state = {
-        deckList: {
-            React: {
-                title: 'React',
-                questions: [
-                    {
-                        question: 'What is React?',
-                        answer: 'A library for managing user interfaces'
-                    },
-                    {
-                        question: 'Where do you make Ajax requests in React?',
-                        answer: 'The componentDidMount lifecycle event'
-                    }
-                ]
-            },
-            JavaScript: {
-                title: 'JavaScript',
-                questions: [
-                    {
-                        question: 'What is a closure?',
-                        answer: 'The combination of a function and the lexical environment within which that function was declared.'
-                    }
-                ]
-            }
-        }
+    static propTypes = {
+        deckList: PropTypes.object.isRequired
+    };
+
+    static defaultProps = {
+        deckList: {}
     };
 
     renderItem({item}) {
@@ -37,18 +21,20 @@ export default class DeckListView extends Component {
             <View style={{borderColor: gray, borderBottomWidth: 1, backgroundColor: white}}>
                 <DeckDetail title={item.title}
                             cards={item.questions.length}
-                            onPress={this.viewDeck.bind(this, item.title)}
+                            onPress={this.viewDeck.bind(this, item)}
                 />
             </View>
         )
     }
 
     viewDeck(deck) {
-        this.props.navigation.navigate('DeckView', {deck});
+        const title = deck.title;
+        this.props.setSelectedDeckAction(deck);
+        this.props.navigation.navigate('DeckView', {title});
     }
 
     render() {
-        const {deckList} = this.state;
+        const {deckList} = this.props;
         const arrayList = Object.keys(deckList).map((key, index) => ({...deckList[key], key: index}));
 
         return (
@@ -60,3 +46,11 @@ export default class DeckListView extends Component {
         )
     }
 }
+
+function mapStateToProps({decks}) {
+    return {
+        deckList: decks.deckList
+    }
+}
+
+export default connect(mapStateToProps, {setSelectedDeckAction})(DeckListView)
