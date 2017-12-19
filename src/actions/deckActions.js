@@ -48,7 +48,7 @@ function createDeckAction(deck) {
     }
 }
 
-export function addCardToDeckAction(card, deckId) {
+function addCardToDeckAction(card, deckId) {
     return {
         type: types.ADD_CARD_TO_DECK,
         card,
@@ -67,5 +67,13 @@ export function createDeck(deck) {
     return (dispatch, getState) => {
         dispatch(createDeckAction(deck));
         saveDeck({deck, key: deck.title})
+    }
+}
+
+export function addCardToDeck(card, deckId) {
+    return (dispatch, getState) => {
+        dispatch(addCardToDeckAction(card, deckId));
+        const deck=getState().decks.deckList[deckId];
+        saveDeck({deck, key: deckId})
     }
 }
