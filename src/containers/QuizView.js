@@ -6,7 +6,8 @@ import IconPlatform from '../components/IconPlatform';
 import Question from '../components/Question';
 import Answer from '../components/Answer';
 import {connect} from "react-redux";
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import {resetQuizAction} from '../actions/deckActions';
 
 const QUESTION_VIEW = 'question-view';
 const ANSWER_VIEW = 'answer-view';
@@ -37,6 +38,10 @@ class QuizView extends Component {
     constructor() {
         super();
         this.animatedValue = new Animated.Value(0);
+    }
+
+    componentWillUnmount() {
+        this.props.resetQuizAction();
     }
 
     animate() {
@@ -151,4 +156,4 @@ function mapStateToProps({decks}) {
     }
 }
 
-export default connect(mapStateToProps)(QuizView)
+export default connect(mapStateToProps, {resetQuizAction})(QuizView)

@@ -6,3 +6,28 @@ export function setSelectedDeckAction(selectedDeck) {
         selectedDeck
     }
 }
+
+export function setCurrentQuestionQuizAction(currentQuestion) {
+    return {
+        type: types.SET_CURRENT_QUESTION,
+        currentQuestion
+    }
+}
+
+export function addFailQuestionAction() {
+    return {
+        type: types.ADD_FAIL_QUESTION
+    }
+}
+
+export function addHitQuestionAction() {
+    return {
+        type: types.ADD_HIT_QUESTION
+    }
+}
+
+export function resetQuizAction() {
+    return {
+        type: types.RESET_QUIZ
+    }
+}
