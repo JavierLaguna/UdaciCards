@@ -1,4 +1,5 @@
 import * as types from './types';
+import {saveDeck} from '../../utils/api';
 
 export function setSelectedDeckAction(selectedDeck) {
     return {
@@ -40,7 +41,7 @@ export function addVoteToDeckAction(vote, deckId) {
     }
 }
 
-export function createDeckAction(deck) {
+function createDeckAction(deck) {
     return {
         type: types.CREATE_DECK,
         deck,
@@ -59,5 +60,12 @@ export function setDeckListAction(deckList) {
     return {
         type: types.SET_DECK_LIST,
         deckList
+    }
+}
+
+export function createDeck(deck) {
+    return (dispatch, getState) => {
+        dispatch(createDeckAction(deck));
+        saveDeck({deck, key: deck.title})
     }
 }

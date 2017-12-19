@@ -7,6 +7,6 @@ export function getDecks() {
         .then((results) => JSON.parse(results))
 }
 
-export function submitEntry({entry, key}) {
-    return AsyncStorage.mergeItem(CARDS_STORAGE_KEY, JSON.stringify({[key]: entry}));
+export function saveDeck({deck, key}) {
+    return AsyncStorage.mergeItem(CARDS_STORAGE_KEY, JSON.stringify({[key]: deck}));
 }
