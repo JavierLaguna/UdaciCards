@@ -33,7 +33,7 @@ export function resetQuizAction() {
     }
 }
 
-export function addVoteToDeckAction(vote, deckId) {
+function addVoteToDeckAction(vote, deckId) {
     return {
         type: types.ADD_VOTE_TO_DECK,
         vote,
@@ -73,6 +73,14 @@ export function createDeck(deck) {
 export function addCardToDeck(card, deckId) {
     return (dispatch, getState) => {
         dispatch(addCardToDeckAction(card, deckId));
+        const deck=getState().decks.deckList[deckId];
+        saveDeck({deck, key: deckId})
+    }
+}
+
+export function addVoteToDeck(vote, deckId) {
+    return (dispatch, getState) => {
+        dispatch(addVoteToDeckAction(vote, deckId));
         const deck=getState().decks.deckList[deckId];
         saveDeck({deck, key: deckId})
     }

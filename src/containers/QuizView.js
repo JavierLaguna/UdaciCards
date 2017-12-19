@@ -9,7 +9,7 @@ import Result from '../components/Result';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 import {
-    addFailQuestionAction, addHitQuestionAction, addVoteToDeckAction, resetQuizAction,
+    addFailQuestionAction, addHitQuestionAction, addVoteToDeck, resetQuizAction,
     setCurrentQuestionQuizAction
 } from '../actions/deckActions';
 
@@ -89,7 +89,7 @@ class QuizView extends Component {
 
     onExit(votes) {
         const deckId = this.props.selectedDeck.title;
-        this.props.addVoteToDeckAction(votes, deckId);
+        this.props.addVoteToDeck(votes, deckId);
         this.props.navigation.navigate('Home');
     }
 
@@ -207,5 +207,5 @@ export default connect(mapStateToProps, {
     addFailQuestionAction,
     addHitQuestionAction,
     setCurrentQuestionQuizAction,
-    addVoteToDeckAction
+    addVoteToDeck
 })(QuizView)
