@@ -39,6 +39,17 @@ export default function entries(state = decksInitialState, action) {
                     ...decksInitialState.quiz,
                 }
             }
+        case types.ADD_VOTE_TO_DECK:
+            const deck = {...state.deckList[action.deckId]};
+            deck.votes.push(action.vote);
+
+            return {
+                ...state,
+                deckList: {
+                    ...state.deckList,
+                    [action.deckId]: {...deck}
+                }
+            }
         default:
             return state;
     }

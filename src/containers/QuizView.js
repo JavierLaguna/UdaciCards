@@ -5,17 +5,17 @@ import {MaterialIcons} from '@expo/vector-icons';
 import IconPlatform from '../components/IconPlatform';
 import Question from '../components/Question';
 import Answer from '../components/Answer';
+import Result from '../components/Result';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 import {
-    addFailQuestionAction,
-    addHitQuestionAction,
-    resetQuizAction,
+    addFailQuestionAction, addHitQuestionAction, addVoteToDeckAction, resetQuizAction,
     setCurrentQuestionQuizAction
 } from '../actions/deckActions';
 
 const QUESTION_VIEW = 'question-view';
 const ANSWER_VIEW = 'answer-view';
+const RESULTS_VIEW = 'results-view';
 const ANIMATION_DURATION = 400;
 
 class QuizView extends Component {
@@ -79,12 +79,18 @@ class QuizView extends Component {
     }
 
     goAheadQuestion() {
+        let subView = QUESTION_VIEW;
         if (this.props.quiz.currentQuestion + 1 === Object.keys(this.props.selectedDeck.questions).length) {
-            console.log('end')
-        } else {
-            this.props.setCurrentQuestionQuizAction(this.props.quiz.currentQuestion + 1);
-            this.onFlipPage(QUESTION_VIEW);
+            subView = RESULTS_VIEW;
         }
+        this.onFlipPage(subView);
+        this.props.setCurrentQuestionQuizAction(this.props.quiz.currentQuestion + 1);
+    }
+
+    onExit(votes) {
+        const deckId = Object.keys(this.props.deckList)[this.props.selectedDeck.key];
+        this.props.addVoteToDeckAction(votes, deckId);
+        this.props.navigation.navigate('Home');
     }
 
     render() {
@@ -95,6 +101,27 @@ class QuizView extends Component {
             inputRange: [0, 1],
             outputRange: ['0deg', '360deg']
         });
+
+        let subView = <View/>;
+        switch (view) {
+            case QUESTION_VIEW:
+                subView =
+                    <Question title={questions[quiz.currentQuestion] ? questions[quiz.currentQuestion].question : ''}
+                              flipPage={this.onFlipPage.bind(this, ANSWER_VIEW)}
+                    />;
+                break;
+            case ANSWER_VIEW:
+                subView =
+                    <Answer title={questions[quiz.currentQuestion] ? questions[quiz.currentQuestion].answer : ''}
+                            flipPage={this.onFlipPage.bind(this, QUESTION_VIEW)}
+                            onPressCorrect={this.onPressCorrect.bind(this)}
+                            onPressIncorrect={this.onPressIncorrect.bind(this)}
+                    />;
+                break;
+            case RESULTS_VIEW:
+                subView = <Result exit={this.onExit.bind(this)}/>;
+                break;
+        }
 
         return (
             <View behavior='padding' style={styles.container}>
@@ -116,16 +143,7 @@ class QuizView extends Component {
                 </View>
 
                 <Animated.View style={[styles.bodyContainer, {transform: [{rotateY}]}]}>
-                    {view === QUESTION_VIEW ?
-                        <Question title={questions[quiz.currentQuestion].question}
-                                  flipPage={this.onFlipPage.bind(this, ANSWER_VIEW)}
-                        />
-                        : <Answer title={questions[quiz.currentQuestion].answer}
-                                  flipPage={this.onFlipPage.bind(this, QUESTION_VIEW)}
-                                  onPressCorrect={this.onPressCorrect.bind(this)}
-                                  onPressIncorrect={this.onPressIncorrect.bind(this)}
-                        />
-                    }
+                    {subView}
                 </Animated.View>
             </View>
         )
@@ -170,6 +188,7 @@ const styles = StyleSheet.create({
     },
     bodyContainer: {
         flex: 1,
+        marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center'
     }
@@ -177,6 +196,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps({decks}) {
     return {
+        deckList: decks.deckList,
         selectedDeck: decks.selectedDeck,
         quiz: decks.quiz
     }
@@ -186,5 +206,6 @@ export default connect(mapStateToProps, {
     resetQuizAction,
     addFailQuestionAction,
     addHitQuestionAction,
-    setCurrentQuestionQuizAction
+    setCurrentQuestionQuizAction,
+    addVoteToDeckAction
 })(QuizView)

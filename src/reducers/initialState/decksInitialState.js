@@ -31,6 +31,6 @@ export default {
     quiz: {
         currentQuestion: 0,
         failQuestions: 0,
-        hitQuestions: 0,
+        hitQuestions: 0
     }
 }

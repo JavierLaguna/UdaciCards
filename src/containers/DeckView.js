@@ -43,11 +43,15 @@ class DeckView extends Component {
         const noStarsItems = [];
 
         for (let i = 0; i < stars; i++) {
-            starsItems.push(<IconPlatform key={i} type='Ionicons' name='star' size={50} color={yellow}/>);
+            starsItems.push(
+                <IconPlatform key={i + stars} type='Ionicons' name='star' size={50} color={yellow}/>
+            );
         }
 
         for (let i = 0; i < noStars; i++) {
-            starsItems.push(<IconPlatform key={i} type='Ionicons' name='star-outline' size={50} color={gray}/>);
+            starsItems.push(
+                <IconPlatform key={i + noStars} type='Ionicons' name='star-outline' size={50} color={gray}/>
+            );
         }
 
         return (

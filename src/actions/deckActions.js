@@ -31,3 +31,11 @@ export function resetQuizAction() {
         type: types.RESET_QUIZ
     }
 }
+
+export function addVoteToDeckAction(vote, deckId) {
+    return {
+        type: types.ADD_VOTE_TO_DECK,
+        vote,
+        deckId
+    }
+}
