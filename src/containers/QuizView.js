@@ -7,7 +7,12 @@ import Question from '../components/Question';
 import Answer from '../components/Answer';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
-import {resetQuizAction} from '../actions/deckActions';
+import {
+    addFailQuestionAction,
+    addHitQuestionAction,
+    resetQuizAction,
+    setCurrentQuestionQuizAction
+} from '../actions/deckActions';
 
 const QUESTION_VIEW = 'question-view';
 const ANSWER_VIEW = 'answer-view';
@@ -40,7 +45,7 @@ class QuizView extends Component {
         this.animatedValue = new Animated.Value(0);
     }
 
-    componentWillUnmount() {
+    componentWillMount() {
         this.props.resetQuizAction();
     }
 
@@ -61,6 +66,25 @@ class QuizView extends Component {
         setTimeout(() => {
             this.setState({view: page});
         }, ANIMATION_DURATION - 150);
+    }
+
+    onPressCorrect() {
+        this.props.addHitQuestionAction();
+        this.goAheadQuestion();
+    }
+
+    onPressIncorrect() {
+        this.props.addFailQuestionAction();
+        this.goAheadQuestion();
+    }
+
+    goAheadQuestion() {
+        if (this.props.quiz.currentQuestion + 1 === Object.keys(this.props.selectedDeck.questions).length) {
+            console.log('end')
+        } else {
+            this.props.setCurrentQuestionQuizAction(this.props.quiz.currentQuestion + 1);
+            this.onFlipPage(QUESTION_VIEW);
+        }
     }
 
     render() {
@@ -93,11 +117,13 @@ class QuizView extends Component {
 
                 <Animated.View style={[styles.bodyContainer, {transform: [{rotateY}]}]}>
                     {view === QUESTION_VIEW ?
-                        <Question title={questions[0].question}
+                        <Question title={questions[quiz.currentQuestion].question}
                                   flipPage={this.onFlipPage.bind(this, ANSWER_VIEW)}
                         />
-                        : <Answer title={questions[0].answer}
+                        : <Answer title={questions[quiz.currentQuestion].answer}
                                   flipPage={this.onFlipPage.bind(this, QUESTION_VIEW)}
+                                  onPressCorrect={this.onPressCorrect.bind(this)}
+                                  onPressIncorrect={this.onPressIncorrect.bind(this)}
                         />
                     }
                 </Animated.View>
@@ -156,4 +182,9 @@ function mapStateToProps({decks}) {
     }
 }
 
-export default connect(mapStateToProps, {resetQuizAction})(QuizView)
+export default connect(mapStateToProps, {
+    resetQuizAction,
+    addFailQuestionAction,
+    addHitQuestionAction,
+    setCurrentQuestionQuizAction
+})(QuizView)
