@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Animated, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {darkGray, gray, white, yellow} from "../../../utils/colors";
 import Button from "../Button";
@@ -17,8 +17,20 @@ export default class Question extends Component {
     };
 
     state = {
-        votes: 0
+        votes: 0,
+        opacity: new Animated.Value(0),
+        width: new Animated.Value(0),
+        height: new Animated.Value(0)
     };
+
+    componentDidMount() {
+        const {opacity, width, height} = this.state;
+
+        Animated.timing(opacity, {toValue: 1, duration: 1000}).start();
+
+        Animated.spring(width, {toValue: 200, speed: 5}).start();
+        Animated.spring(height, {toValue: 200, speed: 5}).start();
+    }
 
     onExit() {
         this.props.exit(this.state.votes);
@@ -32,7 +44,7 @@ export default class Question extends Component {
     }
 
     render() {
-        const {votes} = this.state;
+        const {votes, width, height, opacity} = this.state;
         const noStars = MAX_STARS - votes;
         const starsItems = [];
         const noStarsItems = [];
@@ -42,7 +54,11 @@ export default class Question extends Component {
                 <TouchableOpacity key={i + votes}
                                   onPress={this.setVotes.bind(this, ((MAX_STARS - votes === 0 ? 1 : MAX_STARS - votes)) + i)}
                 >
-                    <IconPlatform type='Ionicons' name='star' size={50} color={yellow}/>
+                    <IconPlatform type='Ionicons'
+                                  name='star'
+                                  size={50}
+                                  color={yellow}
+                    />
                 </TouchableOpacity>
             );
         }
@@ -59,7 +75,9 @@ export default class Question extends Component {
 
         return (
             <View style={styles.container}>
-                <IconPlatform type='Ionicons' name='trophy' size={100} color={yellow}/>
+                <Animated.View style={[styles.trophyContainer, {opacity, height, width}]}>
+                    <IconPlatform type='Ionicons' name='trophy' size={100} color={yellow}/>
+                </Animated.View>
                 <Text style={styles.title}>You are finished the Quiz! Congratulations!</Text>
 
                 <View style={styles.voteContainer}>
@@ -83,12 +101,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: white
     },
+    trophyContainer:{
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     title: {
         fontSize: 20,
         textAlign: 'center'
     },
     voteContainer: {
-        marginTop: 30,
+        // marginTop: 30,
         marginBottom: 30
     },
     subTitle: {
