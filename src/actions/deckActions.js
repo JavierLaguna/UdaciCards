@@ -1,4 +1,5 @@
 import * as types from './types';
+import {saveDeck} from '../../utils/api';
 
 export function setSelectedDeckAction(selectedDeck) {
     return {
@@ -32,7 +33,7 @@ export function resetQuizAction() {
     }
 }
 
-export function addVoteToDeckAction(vote, deckId) {
+function addVoteToDeckAction(vote, deckId) {
     return {
         type: types.ADD_VOTE_TO_DECK,
         vote,
@@ -40,17 +41,47 @@ export function addVoteToDeckAction(vote, deckId) {
     }
 }
 
-export function createDeckAction(deck) {
+function createDeckAction(deck) {
     return {
         type: types.CREATE_DECK,
         deck,
     }
 }
 
-export function addCardToDeckAction(card, deckId) {
+function addCardToDeckAction(card, deckId) {
     return {
         type: types.ADD_CARD_TO_DECK,
         card,
         deckId
+    }
+}
+
+export function setDeckListAction(deckList) {
+    return {
+        type: types.SET_DECK_LIST,
+        deckList
+    }
+}
+
+export function createDeck(deck) {
+    return (dispatch, getState) => {
+        dispatch(createDeckAction(deck));
+        saveDeck({deck, key: deck.title})
+    }
+}
+
+export function addCardToDeck(card, deckId) {
+    return (dispatch, getState) => {
+        dispatch(addCardToDeckAction(card, deckId));
+        const deck=getState().decks.deckList[deckId];
+        saveDeck({deck, key: deckId})
+    }
+}
+
+export function addVoteToDeck(vote, deckId) {
+    return (dispatch, getState) => {
+        dispatch(addVoteToDeckAction(vote, deckId));
+        const deck=getState().decks.deckList[deckId];
+        saveDeck({deck, key: deckId})
     }
 }

@@ -5,4 +5,5 @@ export const ADD_HIT_QUESTION = 'ADD_HIT_QUESTION';
 export const RESET_QUIZ = 'RESET_QUIZ';
 export const ADD_VOTE_TO_DECK = 'ADD_VOTE_TO_DECK';
 export const ADD_CARD_TO_DECK = 'ADD_CARD_TO_DECK';
+export const SET_DECK_LIST = 'SET_DECK_LIST';
 export const CREATE_DECK = 'CREATE_DECK';

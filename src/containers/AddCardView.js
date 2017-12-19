@@ -4,7 +4,7 @@ import {blue, darkGray, white} from "../../utils/colors";
 import {FontAwesome, MaterialIcons} from '@expo/vector-icons';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import {addCardToDeckAction} from "../actions/deckActions";
+import {addCardToDeck} from "../actions/deckActions";
 import {connect} from "react-redux";
 
 class AddCardView extends Component {
@@ -31,7 +31,7 @@ class AddCardView extends Component {
             question: this.state.question,
             answer: this.state.answer
         };
-        this.props.addCardToDeckAction(card, deckId);
+        this.props.addCardToDeck(card, deckId);
         const title = this.props.selectedDeck.title;
         this.props.navigation.navigate('DeckView', {title});
     }
@@ -101,4 +101,4 @@ function mapStateToProps({decks}) {
     }
 }
 
-export default connect(mapStateToProps, {addCardToDeckAction})(AddCardView)
+export default connect(mapStateToProps, {addCardToDeck})(AddCardView)

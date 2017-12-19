@@ -69,6 +69,11 @@ export default function entries(state = decksInitialState, action) {
                     [action.deckId]: {...deckAux}
                 }
             }
+        case types.SET_DECK_LIST:
+            return {
+                ...state,
+                deckList: action.deckList
+            }
         default:
             return state;
     }

@@ -4,7 +4,7 @@ import {blue, darkGray, white} from "../../utils/colors";
 import {FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import {createDeckAction, setSelectedDeckAction} from "../actions/deckActions";
+import {createDeck, setSelectedDeckAction} from "../actions/deckActions";
 import {connect} from "react-redux";
 
 class NewDeckView extends Component {
@@ -27,7 +27,7 @@ class NewDeckView extends Component {
             votes: [],
             questions: []
         };
-        this.props.createDeckAction(newDeck);
+        this.props.createDeck(newDeck);
         this.viewDeck(newDeck);
     }
 
@@ -105,4 +105,4 @@ function mapStateToProps({decks}) {
     }
 }
 
-export default connect(mapStateToProps, {createDeckAction, setSelectedDeckAction})(NewDeckView)
+export default connect(mapStateToProps, {createDeck, setSelectedDeckAction})(NewDeckView)
