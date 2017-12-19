@@ -39,3 +39,18 @@ export function addVoteToDeckAction(vote, deckId) {
         deckId
     }
 }
+
+export function createDeckAction(deck) {
+    return {
+        type: types.CREATE_DECK,
+        deck,
+    }
+}
+
+export function addCardToDeckAction(card, deckId) {
+    return {
+        type: types.ADD_CARD_TO_DECK,
+        card,
+        deckId
+    }
+}

@@ -78,9 +78,12 @@ class DeckView extends Component {
                         Add Card
                     </Button>
 
+                    {selectedDeck.questions.length > 0 &&
                     <Button onPress={this.startQuiz.bind(this)}>
                         Start Quiz
                     </Button>
+                    }
+
                 </View>
             </View>
         )

@@ -50,6 +50,25 @@ export default function entries(state = decksInitialState, action) {
                     [action.deckId]: {...deck}
                 }
             }
+        case types.CREATE_DECK:
+            return {
+                ...state,
+                deckList: {
+                    ...state.deckList,
+                    [action.deck.title]: {...action.deck}
+                }
+            }
+        case types.ADD_CARD_TO_DECK:
+            const deckAux = {...state.deckList[action.deckId]};
+            deckAux.questions.push(action.card);
+
+            return {
+                ...state,
+                deckList: {
+                    ...state.deckList,
+                    [action.deckId]: {...deckAux}
+                }
+            }
         default:
             return state;
     }
