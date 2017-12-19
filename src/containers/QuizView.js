@@ -88,7 +88,7 @@ class QuizView extends Component {
     }
 
     onExit(votes) {
-        const deckId = Object.keys(this.props.deckList)[this.props.selectedDeck.key];
+        const deckId = this.props.selectedDeck.title;
         this.props.addVoteToDeckAction(votes, deckId);
         this.props.navigation.navigate('Home');
     }
