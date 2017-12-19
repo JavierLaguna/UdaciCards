@@ -54,3 +54,10 @@ export function addCardToDeckAction(card, deckId) {
         deckId
     }
 }
+
+export function setDeckListAction(deckList) {
+    return {
+        type: types.SET_DECK_LIST,
+        deckList
+    }
+}
