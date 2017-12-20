@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
 function mapStateToProps({decks}) {
     return {
         deckList: decks.deckList,
-        selectedDeck: decks.selectedDeck,
+        selectedDeck: decks.deckList[decks.selectedDeck],
         quiz: decks.quiz
     }
 }

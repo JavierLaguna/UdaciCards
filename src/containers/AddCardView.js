@@ -26,7 +26,7 @@ class AddCardView extends Component {
     }
 
     onSubmit() {
-        const deckId = this.props.selectedDeck.title;
+        const deckId = this.props.selectedDeck;
         const card = {
             question: this.state.question,
             answer: this.state.answer
