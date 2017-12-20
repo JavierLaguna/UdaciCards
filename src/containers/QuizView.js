@@ -9,9 +9,13 @@ import Result from '../components/Result';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 import {
-    addFailQuestionAction, addHitQuestionAction, addVoteToDeck, resetQuizAction,
+    addFailQuestionAction,
+    addHitQuestionAction,
+    addVoteToDeck,
+    resetQuizAction,
     setCurrentQuestionQuizAction
 } from '../actions/deckActions';
+import {setLocalNotification, clearLocalNotification} from "../notification/notification";
 
 const QUESTION_VIEW = 'question-view';
 const ANSWER_VIEW = 'answer-view';
@@ -82,6 +86,8 @@ class QuizView extends Component {
         let subView = QUESTION_VIEW;
         if (this.props.quiz.currentQuestion + 1 === Object.keys(this.props.selectedDeck.questions).length) {
             subView = RESULTS_VIEW;
+            clearLocalNotification()
+                .then(setLocalNotification)
         }
         this.onFlipPage(subView);
         this.props.setCurrentQuestionQuizAction(this.props.quiz.currentQuestion + 1);

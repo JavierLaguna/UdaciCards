@@ -11,6 +11,7 @@ import IconPlatform from '../components/IconPlatform';
 import {blue, orange, white} from '../../utils/colors';
 import {getDecks} from '../../utils/api';
 import {setDeckListAction} from "../actions/deckActions";
+import {setLocalNotification} from "../notification/notification";
 import {connect} from "react-redux";
 
 const Tabs = TabNavigator({
@@ -100,6 +101,7 @@ class MainView extends Component {
     };
 
     async componentWillMount() {
+        setLocalNotification();
         let decks = await getDecks();
         if (!decks) {
             // decks = this.populateInitialDeckList();
