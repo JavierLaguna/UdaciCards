@@ -6,9 +6,9 @@
     "description": "The best study cards app",
     "slug": "udacicards",
     "version": "1.0",
-    "icon": "https://lh6.googleusercontent.com/Hhv_oGEM-2LaE1Frs2afg3-WPUUF6nmOPUrS9YlnOaXR2B14q8jD15dVbKl6O8fiUolVMyuapW9yS54k3NkM=w1920-h902",
+    "icon": "https://i.imgur.com/H6BidH7.png",
     "notification": {
-      "icon": "https://lh6.googleusercontent.com/Hhv_oGEM-2LaE1Frs2afg3-WPUUF6nmOPUrS9YlnOaXR2B14q8jD15dVbKl6O8fiUolVMyuapW9yS54k3NkM=w1920-h902"
+      "icon": "https://i.imgur.com/H6BidH7.png"
     },
     "ios": {
       "bundleIdentifier": "org.udacicards.exp"
