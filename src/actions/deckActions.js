@@ -73,7 +73,7 @@ export function createDeck(deck) {
 export function addCardToDeck(card, deckId) {
     return (dispatch, getState) => {
         dispatch(addCardToDeckAction(card, deckId));
-        const deck=getState().decks.deckList[deckId];
+        const deck = getState().decks.deckList[deckId];
         saveDeck({deck, key: deckId})
     }
 }
@@ -81,7 +81,7 @@ export function addCardToDeck(card, deckId) {
 export function addVoteToDeck(vote, deckId) {
     return (dispatch, getState) => {
         dispatch(addVoteToDeckAction(vote, deckId));
-        const deck=getState().decks.deckList[deckId];
+        const deck = getState().decks.deckList[deckId];
         saveDeck({deck, key: deckId})
     }
 }

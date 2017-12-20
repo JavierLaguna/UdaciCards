@@ -10,6 +10,12 @@ You can vote the decks when finish a deck quiz.
 
 UdaciCards project is the final project for react-native course of react-nanodegree from Udacity
 
+# Platforms tested
+
+* Android Emulator
+* Android Device
+* iOS Emulator
+
 # Dependencies
 
  * expo

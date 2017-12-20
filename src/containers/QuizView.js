@@ -9,9 +9,13 @@ import Result from '../components/Result';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 import {
-    addFailQuestionAction, addHitQuestionAction, addVoteToDeck, resetQuizAction,
+    addFailQuestionAction,
+    addHitQuestionAction,
+    addVoteToDeck,
+    resetQuizAction,
     setCurrentQuestionQuizAction
 } from '../actions/deckActions';
+import {setLocalNotification, clearLocalNotification} from "../notification/notification";
 
 const QUESTION_VIEW = 'question-view';
 const ANSWER_VIEW = 'answer-view';
@@ -82,6 +86,8 @@ class QuizView extends Component {
         let subView = QUESTION_VIEW;
         if (this.props.quiz.currentQuestion + 1 === Object.keys(this.props.selectedDeck.questions).length) {
             subView = RESULTS_VIEW;
+            clearLocalNotification()
+                .then(setLocalNotification)
         }
         this.onFlipPage(subView);
         this.props.setCurrentQuestionQuizAction(this.props.quiz.currentQuestion + 1);
@@ -90,8 +96,16 @@ class QuizView extends Component {
     onExit(votes) {
         const deckId = this.props.selectedDeck.title;
         this.props.addVoteToDeck(votes, deckId);
-        this.props.navigation.navigate('Home');
+        this.props.navigation.goBack();
     }
+
+    onRestartQuiz(votes) {
+        const deckId = this.props.selectedDeck.title;
+        this.props.addVoteToDeck(votes, deckId);
+        this.props.resetQuizAction();
+        this.onFlipPage(QUESTION_VIEW);
+    }
+
 
     render() {
         const {view} = this.state;
@@ -119,7 +133,9 @@ class QuizView extends Component {
                     />;
                 break;
             case RESULTS_VIEW:
-                subView = <Result exit={this.onExit.bind(this)}/>;
+                subView = <Result exit={this.onExit.bind(this)}
+                                  restartQuiz={this.onRestartQuiz.bind(this)}
+                />;
                 break;
         }
 
@@ -197,7 +213,7 @@ const styles = StyleSheet.create({
 function mapStateToProps({decks}) {
     return {
         deckList: decks.deckList,
-        selectedDeck: decks.selectedDeck,
+        selectedDeck: decks.deckList[decks.selectedDeck],
         quiz: decks.quiz
     }
 }

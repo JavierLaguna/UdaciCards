@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
         padding: 10,
-        height: 40
+        height: 50
     },
     author: {
         alignItems: 'center',
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps({decks}) {
     return {
-        selectedDeck: decks.selectedDeck
+        selectedDeck: decks.deckList[decks.selectedDeck]
     }
 }
 

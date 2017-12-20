@@ -1,6 +1,6 @@
 export default {
     deckList: {},
-    selectedDeck: {},
+    selectedDeck: null,
     quiz: {
         currentQuestion: 0,
         failQuestions: 0,
