@@ -1,18 +1,21 @@
 import React, {Component} from 'react';
-import {Animated, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Animated, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
-import {darkGray, gray, white, yellow} from "../../../utils/colors";
+import {blue, darkGray, gray, white, yellow} from "../../../utils/colors";
 import Button from "../Button";
 import IconPlatform from "../IconPlatform";
 import {MAX_STARS} from '../../constants/constants';
 
 export default class Question extends Component {
     static propTypes = {
-        exit: PropTypes.func.isRequired
+        exit: PropTypes.func.isRequired,
+        restartQuiz: PropTypes.func.isRequired
     };
 
     static defaultProps = {
         exit: () => {
+        },
+        restartQuiz: () => {
         }
     };
 
@@ -41,6 +44,10 @@ export default class Question extends Component {
             votes = MAX_STARS;
         }
         this.setState({votes});
+    }
+
+    onRestartQuiz() {
+        this.props.restartQuiz(this.state.votes);
     }
 
     render() {
@@ -88,7 +95,14 @@ export default class Question extends Component {
                     </View>
                 </View>
 
-                <Button onPress={this.onExit.bind(this)}>Exit</Button>
+                <View style={styles.buttonsContainer}>
+                    <Button style={StyleSheet.flatten(styles.restartButton)}
+                            textStyle={{color: blue}}
+                            onPress={this.onRestartQuiz.bind(this)}>
+                        Restart
+                    </Button>
+                    <Button onPress={this.onExit.bind(this)}>Exit</Button>
+                </View>
             </View>
         )
     }
@@ -101,7 +115,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: white
     },
-    trophyContainer:{
+    trophyContainer: {
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -110,7 +124,6 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     voteContainer: {
-        // marginTop: 30,
         marginBottom: 30
     },
     subTitle: {
@@ -120,5 +133,16 @@ const styles = StyleSheet.create({
     },
     stars: {
         flexDirection: 'row'
+    },
+    buttonsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginBottom: 40,
+        width: 350
+    },
+    restartButton: {
+        backgroundColor: white,
+        borderColor: blue,
+        borderWidth: 2
     }
 });

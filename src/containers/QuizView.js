@@ -90,8 +90,16 @@ class QuizView extends Component {
     onExit(votes) {
         const deckId = this.props.selectedDeck.title;
         this.props.addVoteToDeck(votes, deckId);
-        this.props.navigation.navigate('Home');
+        this.props.navigation.goBack();
     }
+
+    onRestartQuiz(votes) {
+        const deckId = this.props.selectedDeck.title;
+        this.props.addVoteToDeck(votes, deckId);
+        this.props.resetQuizAction();
+        this.onFlipPage(QUESTION_VIEW);
+    }
+
 
     render() {
         const {view} = this.state;
@@ -119,7 +127,9 @@ class QuizView extends Component {
                     />;
                 break;
             case RESULTS_VIEW:
-                subView = <Result exit={this.onExit.bind(this)}/>;
+                subView = <Result exit={this.onExit.bind(this)}
+                                  restartQuiz={this.onRestartQuiz.bind(this)}
+                />;
                 break;
         }
 
