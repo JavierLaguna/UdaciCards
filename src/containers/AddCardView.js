@@ -32,8 +32,7 @@ class AddCardView extends Component {
             answer: this.state.answer
         };
         this.props.addCardToDeck(card, deckId);
-        const title = this.props.selectedDeck.title;
-        this.props.navigation.navigate('DeckView', {title});
+        this.props.navigation.goBack();
     }
 
     render() {

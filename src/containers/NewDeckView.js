@@ -34,6 +34,7 @@ class NewDeckView extends Component {
     viewDeck(deck) {
         const title = deck.title;
         this.props.setSelectedDeckAction(deck);
+        this.props.navigation.goBack();
         this.props.navigation.navigate('DeckView', {title});
         this.setState({
             deckTitle: '',
