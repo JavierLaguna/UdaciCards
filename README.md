@@ -14,7 +14,7 @@ UdaciCards project is the final project for react-native course of react-nanodeg
 
 * Android Emulator
 * Android Device
-* iOS Emulator
+* iOS Emulator (iPhone X)
 
 # Dependencies
 
