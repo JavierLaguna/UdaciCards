@@ -49,16 +49,18 @@ const styles = StyleSheet.create({
     btn: {
         backgroundColor: blue,
         padding: 10,
-        height: 45
+        height: 45,
+        alignItems: 'center',
     },
     androidSubmitBtn: {
         paddingLeft: 30,
         paddingRight: 30,
         borderRadius: 2,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'center'
     },
     iosSubmitBtn: {
+        minWidth: 80,
+        paddingTop: 12.5,
         borderRadius: 7,
         marginLeft: 40,
         marginRight: 40
