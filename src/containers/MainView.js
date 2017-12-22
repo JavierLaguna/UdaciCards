@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {ActivityIndicator, Platform, View} from 'react-native'
 import {StackNavigator, TabNavigator} from 'react-navigation';
-import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {MaterialCommunityIcons, Ionicons} from '@expo/vector-icons';
 import DeckListView from '../containers/DeckListView';
 import NewDeckView from '../containers/NewDeckView';
 import DeckView from '../containers/DeckView';
 import AddCardView from '../containers/AddCardView';
 import QuizView from '../containers/QuizView';
-import IconPlatform from '../components/IconPlatform';
 import {blue, orange, white} from '../../utils/colors';
 import {getDecks} from '../../utils/api';
 import {setDeckListAction} from "../actions/deckActions";
@@ -26,10 +25,9 @@ const Tabs = TabNavigator({
             screen: NewDeckView,
             navigationOptions: {
                 tabBarLabel: 'New Deck',
-                tabBarIcon: ({tintColor}) => <IconPlatform type='Ionicons'
-                                                           name='add'
-                                                           size={30}
-                                                           color={tintColor}/>
+                tabBarIcon: ({tintColor}) => <Ionicons name='ios-add'
+                                                       size={30}
+                                                       color={tintColor}/>
             }
         }
     },
