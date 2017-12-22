@@ -1,6 +1,6 @@
 {
   "name": "UdaciCards",
-  "version": "1.1.0-SNAPSHOT",
+  "version": "1.0.1",
   "private": true,
   "devDependencies": {
     "react-native-scripts": "1.8.0",
