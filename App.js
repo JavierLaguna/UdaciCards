@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator, StatusBar } from "react-native";
 import { Provider } from "react-redux";
 import TabNavigator from "./src/containers/TabNavigator";
 import { blue } from "./utils/colors";
@@ -70,6 +70,7 @@ export default class App extends Component {
 
     return (
       <Provider store={store}>
+        <StatusBar barStyle="light-content" hidden={false} />
         <View style={{ flex: 1 }}>
           {loading ? (
             <ActivityIndicator style={{ flex: 1 }} size="large" color={blue} />
