@@ -8,6 +8,8 @@ import reducer from "./src/reducers";
 import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import { setDeckListAction } from "./src/actions/deckActions";
+import {setLocalNotification} from "./src/notification/notification";
+
 
 const middleware = [thunk];
 const composeEnhancers = compose;
@@ -22,8 +24,8 @@ export default class App extends Component {
   };
 
   async componentDidMount() {
-    // TODO: FIX NOTIFICATION
-    // setLocalNotification(); 
+    setLocalNotification();
+    
     let decks = await getDecks();
     if (!decks) {
       decks = this.populateInitialDeckList();

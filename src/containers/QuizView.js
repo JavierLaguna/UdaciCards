@@ -106,7 +106,6 @@ class QuizView extends Component {
         this.onFlipPage(QUESTION_VIEW);
     }
 
-
     render() {
         const {view} = this.state;
         const {selectedDeck, quiz} = this.props;
