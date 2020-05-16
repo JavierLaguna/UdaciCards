@@ -1,20 +1,33 @@
 {
   "expo": {
-    "sdkVersion": "23.0.0",
-    "orientation": "portrait",
     "name": "UdaciCards",
-    "description": "The best study cards app",
     "slug": "udacicards",
-    "version": "1.0",
-    "icon": "https://i.imgur.com/H6BidH7.png",
-    "notification": {
-      "icon": "https://i.imgur.com/H6BidH7.png"
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo.png",
+    "splash": {
+      "image": "./assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "bundleIdentifier": "org.udacicards.exp"
+      "supportsTablet": true
     },
     "android": {
-      "package": "org.udacicards.exp"
-    }
+      "package": "com.javierlaguna.udacicards",
+      "versionCode": 1
+    },
+    "description": ""
   }
 }

@@ -54,6 +54,7 @@ class DeckListView extends Component {
                     :
                     <FlatList data={arrayList}
                               renderItem={this.renderItem.bind(this)}
+                              keyExtractor={(item) => item.title }
                     />
                 }
             </View>
