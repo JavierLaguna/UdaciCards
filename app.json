@@ -22,12 +22,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.javierlaguna.udacicards"
     },
     "android": {
       "package": "com.javierlaguna.udacicards",
       "versionCode": 1
     },
-    "description": ""
+    "description": "",
+    "entryPoint": "node_modules/expo/AppEntry.js"
   }
 }
